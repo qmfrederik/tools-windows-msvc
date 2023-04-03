@@ -1,0 +1,14 @@
+diff --git a/Source/NSWorkspace.m b/Source/NSWorkspace.m
+index aef73b3f8..3602d9d90 100644
+--- a/Source/NSWorkspace.m
++++ b/Source/NSWorkspace.m
+@@ -755,7 +755,9 @@ static NSDictionary		*urlPreferences = nil;
+     name: @"GSHousekeeping"
+     object: nil];
+ 
++#ifndef _MSC_VER
+   _workspaceCenter = [_GSWorkspaceCenter new];
++#endif
+   _iconMap = [NSMutableDictionary new];
+   _launched = [NSMutableDictionary new];
+   if (applications == nil)
