@@ -1,0 +1,162 @@
+diff --git a/Headers/Additions/GNUstepGUI/GSFontInfo.h b/Headers/Additions/GNUstepGUI/GSFontInfo.h
+index 2b0283a3f..1a6656d34 100644
+--- a/Headers/Additions/GNUstepGUI/GSFontInfo.h
++++ b/Headers/Additions/GNUstepGUI/GSFontInfo.h
+@@ -65,6 +65,12 @@ values. Backends may override these. */
+ - (NSString *) defaultSystemFontName;
+ - (NSString *) defaultBoldSystemFontName;
+ - (NSString *) defaultFixedPitchFontName;
++
++- (NSMutableDictionary *) allFontFamilies;
++- (NSArray *) allFontNames;
++- (void) setAllFontFamilies: (NSMutableDictionary *)d;
++- (void) setAllFontNames: (NSArray *)a;
++
+ @end
+ 
+ APPKIT_EXPORT_CLASS
+@@ -158,6 +164,33 @@ APPKIT_EXPORT_CLASS
+ - (NSGlyph) glyphForCharacter: (unichar)theChar;
+ - (NSFontDescriptor*) fontDescriptor;
+ 
++- (void) setFontName: (NSString *)n;
++- (NSString *) fontName;
++- (void) setMatrix: (const CGFloat *)m;
++- (const CGFloat *)matrix;
++- (void) setFamilyName: (NSString *)n;
++- (NSString *) familyName;
++- (void) setCoveredCharacterSet: (NSCharacterSet *)c;
++- (NSCharacterSet *) coveredCharacterSet;
++- (void) setNumberOfGlyphs: (unsigned)n;
++- (void) setAscender: (CGFloat)a;
++- (CGFloat) ascender;
++- (void) setDescender: (CGFloat)d;
++- (CGFloat) descender;
++- (void) setFixedPitch: (BOOL)f;
++- (BOOL) isFixedPitch;
++- (void) setBaseFont: (BOOL)f;
++- (BOOL) isBaseFont;
++- (void) setXHeight: (CGFloat)h;
++- (CGFloat) xHeight;
++- (void) setMaximumAdvancement: (NSSize)s;
++- (NSSize) maximumAdvancement;
++- (void) setFontBBox: (NSRect)r;
++- (void) setWeight: (int)w;
++- (int) weight;
++- (NSFontTraitMask) traits;
++- (void) setTraits: (NSFontTraitMask)t;
++- (void) setMostCompatibleStringEncoding: (NSStringEncoding)e;
+ @end
+ 
+ #endif /* __GSFontInfo_h_INCLUDE_ */
+diff --git a/Source/GSFontInfo.m b/Source/GSFontInfo.m
+index cb667faad..728f4b1dc 100644
+--- a/Source/GSFontInfo.m
++++ b/Source/GSFontInfo.m
+@@ -341,6 +341,26 @@ static GSFontEnumerator *sharedEnumerator = nil;
+   return @"Courier";
+ }
+ 
++- (NSMutableDictionary *) allFontFamilies
++{
++  return allFontFamilies;
++}
++
++- (NSArray *) allFontNames
++{
++  return allFontNames;
++}
++
++- (void) setAllFontFamilies: (NSMutableDictionary *)d
++{
++  allFontFamilies = d;
++}
++
++- (void) setAllFontNames: (NSArray *)a
++{
++  allFontNames = a;
++}
++
+ @end
+ 
+ @interface GSFontInfo (Backend)
+@@ -866,5 +886,79 @@ static GSFontEnumerator *sharedEnumerator = nil;
+     }
+   return fontDescriptor;
+ }
++- (void) setFontName: (NSString *)n
++{
++  ASSIGN(fontName, n);
++}
++
++- (void) setMatrix: (const CGFloat *)m
++{
++   memcpy(matrix, m, sizeof(matrix));
++}
++
++- (void) setFamilyName: (NSString *)n
++{
++  ASSIGN(familyName, n);
++}
++
++- (void) setCoveredCharacterSet: (NSCharacterSet *)c
++{
++  ASSIGN(coveredCharacterSet, c);
++}
++
++- (void) setNumberOfGlyphs: (unsigned)n
++{
++  numberOfGlyphs = n;
++}
++
++- (void) setAscender: (CGFloat)a
++{
++  ascender = a;
++}
++
++- (void) setDescender: (CGFloat)d
++{
++  descender = d;
++}
++
++- (void) setFixedPitch: (BOOL)f
++{
++  isFixedPitch = f;
++}
++
++- (void) setBaseFont: (BOOL)f
++{
++  isBaseFont = f;
++}
++
++- (void) setXHeight: (CGFloat)h
++{
++  xHeight = h;
++}
++
++- (void) setMaximumAdvancement: (NSSize)s
++{
++  maximumAdvancement = s;
++}
++
++- (void) setFontBBox: (NSRect)r
++{
++  fontBBox = r;
++}
++
++- (void) setWeight: (int)w
++{
++  weight = w;
++}
++
++- (void) setTraits: (NSFontTraitMask)t
++{
++  traits = t;
++}
++
++- (void) setMostCompatibleStringEncoding: (NSStringEncoding)e
++{
++  mostCompatibleStringEncoding = e;
++}
+ 
+ @end

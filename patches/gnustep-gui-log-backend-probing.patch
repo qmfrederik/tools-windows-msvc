@@ -1,0 +1,13 @@
+diff --git a/Source/NSApplication.m b/Source/NSApplication.m
+index e7a9a3c50..785fe0986 100644
+--- a/Source/NSApplication.m
++++ b/Source/NSApplication.m
+@@ -193,6 +193,8 @@ gnustep_backend_path(NSString *dir, NSString *name)
+     {
+       path = [path stringByAppendingPathComponent: dir];
+       path = [path stringByAppendingPathComponent: name];
++
++      NSLog(@"Trying to load %@ %@ at %@", dir, name, path);
+       if ([[NSFileManager defaultManager] fileExistsAtPath: path])
+ 	{
+ 	  break;

@@ -1,0 +1,13 @@
+diff --git a/Source/NSException.m b/Source/NSException.m
+index ea4bfa411..8db4ea9d0 100644
+--- a/Source/NSException.m
++++ b/Source/NSException.m
+@@ -1604,6 +1604,8 @@ callUncaughtHandler(id value)
+       [_e_stack trace];
+     }
+ 
++  NSWarnLog(@"\t *** name = %@, reason = %@", _e_name, _e_reason);
++
+ #if     defined(_NATIVE_OBJC_EXCEPTIONS)
+   @throw self;
+ #else
